@@ -15,11 +15,12 @@ in
       cargo-audit
       cargo-edit
       cargo-flamegraph
+      cargo-criterion
 
       # Nix tools
       niv
     ];
-    
+
     # Always enable rust backtraces in development shell
     RUST_BACKTRACE = "1";
 
