@@ -8,13 +8,19 @@ edition = "2021"
 name = "aoc"
 path = "src/lib.rs"
 
+[profile.release]
+debug = 1
+
 [[bin]]
 name = "aoc"
 path = "src/bin/main.rs"
 
 [dependencies]
 ahash = "0.7.6"
+pathfinding = "3.0.5"
 nom = "7.1.0"
+typenum = "1.14.0"
+hex = "0.4.3"
 
 [dev-dependencies]
 criterion = "0.3"

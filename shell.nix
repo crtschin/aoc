@@ -17,6 +17,8 @@ in
       cargo-flamegraph
       cargo-criterion
 
+      valgrind
+
       # Nix tools
       niv
     ];

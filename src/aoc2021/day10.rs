@@ -10,7 +10,13 @@ fn parse_inputs(file_path: &str) -> Result<Vec<Vec<u8>>, Box<dyn Error>> {
     Ok(result)
 }
 
-pub fn check_line(line: &Vec<u8>) -> Option<Result<Vec<u8>, u32>> {
+enum Problem {
+    Incomplete(Vec<u8>),
+    Corrupted(u32),
+    No,
+}
+
+fn check_line(line: &Vec<u8>) -> Problem {
     let mut stack: Vec<u8> = Vec::new();
     for &c in line {
         match c {
@@ -21,10 +27,10 @@ pub fn check_line(line: &Vec<u8>) -> Option<Result<Vec<u8>, u32>> {
             _ => {
                 if Some(c) != stack.pop() {
                     match c {
-                        b')' => return Some(Err(3)),
-                        b']' => return Some(Err(57)),
-                        b'}' => return Some(Err(1197)),
-                        b'>' => return Some(Err(25137)),
+                        b')' => return Problem::Corrupted(3),
+                        b']' => return Problem::Corrupted(57),
+                        b'}' => return Problem::Corrupted(1197),
+                        b'>' => return Problem::Corrupted(25137),
                         _ => unreachable!(),
                     }
                 }
@@ -33,9 +39,9 @@ pub fn check_line(line: &Vec<u8>) -> Option<Result<Vec<u8>, u32>> {
     }
     if stack.len() > 0 {
         stack.reverse();
-        Some(Ok(stack))
+        Problem::Incomplete(stack)
     } else {
-        None
+        Problem::No
     }
 }
 
@@ -44,7 +50,7 @@ pub fn first() -> Result<u32, Box<dyn Error>> {
     let mut sum = 0;
     for line in parsed.iter() {
         match check_line(line) {
-            Some(Err(score)) => sum += score,
+            Problem::Corrupted(score) => sum += score,
             _ => {}
         }
     }
@@ -56,7 +62,7 @@ pub fn second() -> Result<u64, Box<dyn Error>> {
     let mut scores = Vec::with_capacity(parsed.len());
     for line in parsed.iter() {
         match check_line(line) {
-            Some(Ok(missing)) => {
+            Problem::Incomplete(missing) => {
                 scores.push(missing.iter().fold(0, |score, cur| {
                     score * 5
                         + match cur {
