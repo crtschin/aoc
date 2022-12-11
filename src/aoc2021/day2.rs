@@ -1,6 +1,6 @@
 use std::error::Error;
 
-use super::util::read_file;
+use crate::util::read_file_string;
 
 enum Instr {
     Forward(i32),
@@ -10,7 +10,7 @@ enum Instr {
 
 fn parse_inputs(file_path: &str) -> Result<Vec<Instr>, Box<dyn Error>> {
     let mut result: Vec<Instr> = Vec::new();
-    for line in read_file(file_path)?.lines() {
+    for line in read_file_string(file_path)?.lines() {
         let split: Vec<&str> = line.trim_end().split(" ").collect();
         let amount: i32 = split[1].parse()?;
         match split[0] {

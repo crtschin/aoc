@@ -76,17 +76,7 @@ fn explode(tree: &Tree) -> (Tree, bool) {
         match tree {
             Tree::Sub(ref l, ref r) => {
                 match (l, r) {
-                    (Tree::Lit(_), Tree::Lit(_)) => todo!(),
                     _ => todo!()
-                    // _ => {
-                    //     match explode_rec(*l) {
-                    //         Ok(tl) => match explode_rec(*r) {
-                    //             Ok(tr) => Ok(Tree::Sub(Box::new(tl), Box::new(tr))),
-                    //             Err(_) => todo!(),
-                    //         },
-                    //         Err(_) => todo!(),
-                    //     }
-                    // }
                 }
             },
             Tree::Lit(_) => todo!(),

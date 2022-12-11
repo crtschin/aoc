@@ -1,10 +1,10 @@
 use std::error::Error;
 
-use super::util::read_file;
+use crate::util::read_file_string;
 
 fn parse_inputs(file_path: &str) -> Result<Vec<i32>, Box<dyn Error>> {
     let mut result: Vec<i32> = Vec::new();
-    for line in read_file(file_path)?.lines() {
+    for line in read_file_string(file_path)?.lines() {
         let parsed = line.parse::<i32>()?;
         result.push(parsed);
     }

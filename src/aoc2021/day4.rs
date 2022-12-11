@@ -3,7 +3,7 @@ use std::error::Error;
 
 use ahash::RandomState;
 
-use super::util::read_file;
+use crate::util::read_file_string;
 
 struct Board {
     numbers: Vec<i32>,
@@ -12,7 +12,7 @@ struct Board {
 fn parse_inputs(
     file_path: &str,
 ) -> Result<(Vec<i32>, Vec<Board>), Box<(dyn std::error::Error + 'static)>> {
-    let raw = read_file(file_path)?;
+    let raw = read_file_string(file_path)?;
     let mut lines = raw.lines();
     let mut result: Vec<_> = Vec::new();
     let draws = lines.next().unwrap()

@@ -2,7 +2,7 @@ use std::{collections::HashMap, error::Error};
 
 use ahash::RandomState;
 
-use crate::aoc2021::util::read_file;
+use crate::util::read_file_string;
 
 struct Cave {
     start: usize,
@@ -17,7 +17,7 @@ fn parse_inputs(file_path: &str) -> Result<Cave, Box<dyn Error>> {
     let mut lookup: HashMap<&str, usize, RandomState> = HashMap::default();
     let mut start = 0;
     let mut end = 0;
-    for line in read_file(file_path)?.lines() {
+    for line in read_file_string(file_path)?.lines() {
         let splits: Vec<_> = line.split("-").collect();
         for dest in splits.iter() {
             if !lookup.contains_key(dest) {

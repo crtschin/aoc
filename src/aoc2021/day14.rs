@@ -2,7 +2,7 @@ use std::{collections::HashMap, error::Error};
 
 use ahash::RandomState;
 
-use crate::aoc2021::util::read_file;
+use crate::util::read_file_string;
 
 type Template = Vec<u8>;
 type Rules = HashMap<(u8, u8), u8, RandomState>;
@@ -11,7 +11,7 @@ fn parse_inputs(file_path: &str) -> Result<(Template, Rules), Box<dyn Error>> {
     let mut flag = true;
     let mut template = vec![];
     let mut rules = HashMap::default();
-    for line in read_file(file_path)?.lines() {
+    for line in read_file_string(file_path)?.lines() {
         if line.len() == 0 {
             flag = false;
             continue;

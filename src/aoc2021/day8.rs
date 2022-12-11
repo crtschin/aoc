@@ -6,7 +6,7 @@ use nom::combinator::map;
 use nom::multi::separated_list1;
 use nom::sequence::separated_pair;
 
-use crate::aoc2021::util::read_file;
+use crate::util::read_file_string;
 
 struct Entry {
     signals: Vec<u8>,
@@ -46,7 +46,7 @@ fn parse_inputs(file_path: &str) -> Result<Vec<Entry>, Box<dyn Error>> {
         let (_, ranges) = entry(s).unwrap();
         ranges
     };
-    let raw = read_file(file_path)?;
+    let raw = read_file_string(file_path)?;
     let parsed = parse_entry(&raw);
     Ok(parsed)
 }

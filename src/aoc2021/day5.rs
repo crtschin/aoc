@@ -6,7 +6,7 @@ use nom::combinator::{map, recognize};
 use nom::multi::{many0, many1, separated_list1};
 use nom::sequence::{separated_pair, terminated};
 
-use super::util::read_file;
+use crate::util::read_file_string;
 
 struct Range {
     from: (i32, i32),
@@ -39,7 +39,7 @@ fn parse_inputs(file_path: &str) -> Result<Vec<Range>, Box<dyn Error>> {
         let (_, ranges) = range(s).unwrap();
         ranges
     };
-    let raw = read_file(file_path)?;
+    let raw = read_file_string(file_path)?;
     let parsed = parse_range(&raw);
     Ok(parsed)
 }

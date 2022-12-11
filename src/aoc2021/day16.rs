@@ -5,11 +5,11 @@ use nom::{
     multi::{count, many0},
 };
 
-use crate::aoc2021::util::read_file;
+use crate::util::read_file_string;
 
 fn parse_inputs(file_path: &str) -> Result<String, Box<dyn Error>> {
     let mut result = String::new();
-    for c in read_file(file_path)?.trim().bytes() {
+    for c in read_file_string(file_path)?.trim().bytes() {
         match c {
             b'0' => result.push_str("0000"),
             b'1' => result.push_str("0001"),

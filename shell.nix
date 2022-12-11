@@ -7,12 +7,13 @@ let
   channel = nixpkgs.rustChannelOf { rustToolchain = ./rust-toolchain; };
 in
   nixpkgs.mkShell {
-    name = "auto-dev";
+    name = "rust";
     nativeBuildInputs = with nixpkgs; [
       # Rust core
       channel.rust
       # Neat helper tools
       cargo-audit
+      cargo-deny
       cargo-edit
       cargo-flamegraph
       cargo-criterion

@@ -2,7 +2,7 @@ use std::{collections::HashSet, error::Error, vec};
 
 use ahash::RandomState;
 
-use crate::aoc2021::util::read_file;
+use crate::util::read_file_string;
 
 struct State {
     dots: HashSet<(u16, u16), RandomState>,
@@ -20,7 +20,7 @@ fn parse_inputs(file_path: &str) -> Result<(State, Vec<Instr>), Box<dyn Error>> 
     let mut instrs = vec![];
     let mut width = 0;
     let mut height = 0;
-    for line in read_file(file_path)?.lines() {
+    for line in read_file_string(file_path)?.lines() {
         if line.len() == 0 {
             flag = true;
             continue;

@@ -3,7 +3,7 @@ use std::{error::Error, vec};
 use pathfinding::prelude::*;
 use typenum::{Unsigned, U1, U5};
 
-use crate::aoc2021::util::read_file;
+use crate::util::read_file_string;
 
 #[derive(PartialEq, Eq, Hash, Debug, Clone)]
 pub struct Point {
@@ -70,7 +70,7 @@ fn parse_inputs(file_path: &str) -> Result<Map, Box<dyn Error>> {
     let mut nodes = vec![];
     let mut height = 0;
     let mut width = 0;
-    for (y, line) in read_file(file_path)?.lines().enumerate() {
+    for (y, line) in read_file_string(file_path)?.lines().enumerate() {
         width = line.len();
         nodes.push(vec![]);
         for c in line.trim_end().bytes() {
