@@ -1,8 +1,7 @@
 use std::error::Error;
 use std::cmp::Ordering;
-use std::str;
 
-use crate::util::read_file;
+use crate::util::{read_file, to_u32};
 
 pub fn first() -> Result<i32, Box<dyn Error>> {
     let mut score = 0;
@@ -10,17 +9,17 @@ pub fn first() -> Result<i32, Box<dyn Error>> {
         if line.len() == 0 {
             break;
         }
-        let mut numbers = [-1, -1];
+        let mut numbers = [0, 0];
         let mut flag = Ordering::Equal;
         for elf in line.split(|&c| c == b',') {
             for (i, number) in elf.split(|&c| c == b'-').enumerate() {
-                if numbers[i] == -1 {
-                    numbers[i] = str::from_utf8(number)?.parse::<i32>()?;
+                if numbers[i] == 0 {
+                    numbers[i] = to_u32(number);
                 } else {
                     if i % 2 == 0 {
-                        flag = numbers[i].cmp(&str::from_utf8(number)?.parse::<i32>().unwrap());
+                        flag = numbers[i].cmp(&to_u32(number));
                     } else {
-                        match numbers[i].cmp(&str::from_utf8(number)?.parse::<i32>().unwrap()) {
+                        match numbers[i].cmp(&to_u32(number)) {
                             Ordering::Less => match flag {
                                 Ordering::Less => (),
                                 _ => score += 1,
@@ -48,8 +47,8 @@ pub fn second() -> Result<i32, Box<dyn Error>> {
 
         let numbers = line
             .split(|&c| c == b',' || c == b'-')
-            .map(|n| str::from_utf8(n).unwrap().parse::<i32>().unwrap())
-            .collect::<Vec<i32>>();
+            .map(|n| to_u32(n))
+            .collect::<Vec<u32>>();
 
         if numbers[2] <= numbers[1] && numbers[3] >= numbers[0] {
             score += 1;

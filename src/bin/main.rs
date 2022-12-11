@@ -5,7 +5,7 @@ use aoc::{
 
 fn main() {
     let start = std::time::Instant::now();
-    match aoc2022::day4::second() {
+    match aoc2022::day6::second() {
         Ok(result) => {
             let end = std::time::Instant::now();
             let time_diff = end - start;
